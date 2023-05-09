@@ -1,6 +1,6 @@
 const express = require("express");
-const bodyParser = require("cors");
-const cors = require("body-parser");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const { API_VERSION } = require("./constants");
 
 const app = express();
