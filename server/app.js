@@ -7,7 +7,8 @@ const app = express();
 // ...
 
 // Configure Body Parse
-// ...
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Configure Header HTTP - CORS
 // ...
