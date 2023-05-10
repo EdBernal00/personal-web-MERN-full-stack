@@ -4,8 +4,8 @@ const User = require("../models/user");
 function register(req, res) {
   const { firstName, lastName, email, password } = req.body;
 
-  if (!email) res.status(400).send({ msg: "El email es obligatorio" });
-  if (!password) res.status(400).send({ msg: "La contraseña es obligatoria" });
+  if (!email) res.status(400).send({ msg: "El email es obligatorio." });
+  if (!password) res.status(400).send({ msg: "La contraseña es obligatoria." });
 
   const user = new User({
     firstName,
