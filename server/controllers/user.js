@@ -61,21 +61,32 @@ async function updateUser(req, res) {
   } else {
     delete userData.password;
   }
-  
+
   if (req.files.avatar) {
     const imagePath = image.getFilePath(req.files.avatar);
 
     userData.avatar = imagePath;
   }
 
-  User.findByIdAndUpdate({_id: id}, userData, (error) => {
+  User.findByIdAndUpdate({ _id: id }, userData, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al actualizar el usuario." });
     } else {
       res.status(200).send("Actualizado correctamente");
     }
   });
+}
 
+async function deleteUser(req, res) {
+  const { id } = req.params;
+
+  User.findByIdAndDelete({_id: id}, (error) => {
+    if (error) {
+      res.status(400).send({ msg: "Error al eliminar el usuario." });
+    } else {
+      res.status(200).send("Eliminado correctamente");
+    }
+  });
 }
 
 module.exports = {
@@ -83,4 +94,5 @@ module.exports = {
   getUsers,
   createUser,
   updateUser,
+  deleteUser,
 };
