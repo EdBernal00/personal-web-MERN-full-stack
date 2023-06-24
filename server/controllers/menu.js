@@ -33,7 +33,7 @@ async function updateMenu(req, res) {
   const { id } = req.params;
   const menuData = req.body;
 
-  Menu.findByIdAndUpdate({ _id: id }, menuData, (error, menuUpdate) => {
+  Menu.findByIdAndUpdate({ _id: id }, menuData, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al actualizar el menu." });
     } else {
@@ -42,8 +42,21 @@ async function updateMenu(req, res) {
   });
 }
 
+async function deleteMenu(req, res) {
+  const { id } = req.params;
+
+  Menu.findByIdAndDelete({ _id: id }, (error) => {
+    if (error) {
+      res.status(400).send({ msg: "Error al eliminar el menu." });
+    } else {
+      res.status(200).send({ msg: "Eliminado correctamente" });
+    }
+  });
+}
+
 module.exports = {
   createMenu,
   getMenus,
   updateMenu,
+  deleteMenu,
 };
