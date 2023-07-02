@@ -16,6 +16,17 @@ async function createCourse(req, res){
     });
 }
 
+async function getCourses(req, res){
+    Course.find((error, courses) => {
+        if(error){
+            res.status(400).send({msg: "Error al obtener los cursos."});
+        }else{
+            res.status(200).send(courses);
+        }
+    });
+}
+
 module.exports = {
     createCourse,
+    getCourses,
 };
