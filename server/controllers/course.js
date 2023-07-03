@@ -41,7 +41,7 @@ function updateCourse(req, res) {
     courseData.miniature = imagePath;
   }
 
-  Course.findByIdAndUpdate({ _id: id }, courseData, (error, courseUpdate) => {
+  Course.findByIdAndUpdate({ _id: id }, courseData, (error) => {
     if (error) {
       res.status(400).send({ msg: "Error al actualizar el curso." });
     } else {
@@ -50,8 +50,21 @@ function updateCourse(req, res) {
   });
 }
 
+function deleteCourse(req, res) {
+    const { id } = req.params;
+    
+    Course.findByIdAndDelete({ _id: id }, (error) => {
+        if (error) {
+        res.status(400).send({ msg: "Error al eliminar el curso." });
+        } else {
+        res.status(200).send({ msg: "Curso eliminado correctamente" });
+        }
+    });
+}
+
 module.exports = {
   createCourse,
   getCourses,
   updateCourse,
+  deleteCourse,
 };
