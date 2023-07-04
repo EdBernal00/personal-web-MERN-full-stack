@@ -17,6 +17,24 @@ function createPost(req, res) {
     });
 }
 
+function getPosts(req, res) {
+    const { page = 1, limit = 10 } = req.query;
+    const options = {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        sort: { createdAt: 'desc' },
+    }
+
+    Post.paginate({}, options, (error, posts) => {
+        if (error) {
+            res.status(400).send({ msg: 'Error al obtener los posts.' });
+        } else {
+            res.status(200).send(posts);
+        }
+    });
+}
+
 module.exports = {
     createPost,
+    getPosts,
 };
