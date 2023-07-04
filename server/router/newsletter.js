@@ -4,6 +4,6 @@ const md_auth = require("../middlewares/authenticated");
 
 const api = express.Router();
 
-// API routes
+api.post("/newsletter", NewsletterController.suscribeEmail);
 
 module.exports = api;

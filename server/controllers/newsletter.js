@@ -1,5 +1,25 @@
-const Newsletter = require('../models/newsletter');
+const Newsletter = require("../models/newsletter");
 
-// Functions...
+function suscribeEmail(req, res) {
+  const { email } = req.body;
 
-module.exports = {};
+  if (!email) {
+    res.status(404).send({ msg: "El email es obligatorio." });
+  }
+
+  const newsletter = new Newsletter({
+    email: email.toLowerCase(),
+  });
+
+  newsletter.save((error) => {
+    if (error) {
+      res.status(500).send({ msg: "El email ya existe." });
+    } else {
+      res.status(200).send({ msg: "Email registrado correctamente." });
+    }
+  });
+}
+
+module.exports = {
+  suscribeEmail,
+};
