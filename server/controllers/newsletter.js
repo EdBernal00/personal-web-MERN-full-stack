@@ -36,7 +36,20 @@ function getEmails(req, res) {
   });
 }
 
+function deleteEmail(req,res) {
+  const { id } = req.params;
+
+  Newsletter.findByIdAndDelete({ _id: id }, (error) => {
+    if (error) {
+      res.status(400).send({ msg: "Error al eliminar el email." });
+    } else {
+      res.status(200).send({ msg: "Email eliminado correctamente." });
+    }
+  });
+}
+
 module.exports = {
   suscribeEmail,
   getEmails,
+  deleteEmail,
 };
