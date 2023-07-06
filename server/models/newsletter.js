@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const NewsletterSchema = new mongoose.Schema({
     email: {
@@ -6,5 +7,7 @@ const NewsletterSchema = new mongoose.Schema({
         unique: true,
     }
 });
+
+NewsletterSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Newsletter", NewsletterSchema);

@@ -20,6 +20,23 @@ function suscribeEmail(req, res) {
   });
 }
 
+function getEmails(req, res) {
+  const { page = 1, limit = 10 } = req.query;
+  const options = {
+    page: parseInt(page),
+    limit: parseInt(limit),
+  };
+
+  Newsletter.paginate({}, options, (error, emailsStored) => {
+    if (error) {
+      res.status(400).send({ msg: "Error al obtener los emails." });
+    } else {
+      res.status(200).send(emailsStored);
+    }
+  });
+}
+
 module.exports = {
   suscribeEmail,
+  getEmails,
 };
