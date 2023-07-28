@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Form } from "semantic-ui-react";
 import { useFormik } from "formik";
+import { Auth } from "../../../../api";
 import { initialValues, validationSchema } from "./RegisterForm.form";
 import "./RegisterForm.scss";
 
-export function RegisterForm() {
+const authController = new Auth();
+
+export function RegisterForm(props) {
+  const { openLogin } = props;
   const [error, setError] = useState("");
 
   const formik = useFormik({
@@ -13,7 +17,8 @@ export function RegisterForm() {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        console.log(formValue);
+        await authController.register(formValue);
+        openLogin();
       } catch (error) {
         console.error(error);
       }
